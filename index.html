@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workplace Safety Sentinel | ABCD Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-brand">
+            <div class="logo-pulse"></div>
+            <span>SAFETY SENTINEL <strong>ABCD</strong></span>
+        </div>
+        <div class="nav-metrics">
+            <span class="badge badge-online">● SYSTEM ACTIVE</span>
+            <span class="badge badge-hw">NVIDIA GPU / Jetson</span>
+            <span id="current-clock" class="mono-text">--:--:--</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Threat Banner -->
+        <section id="alert-banner" class="banner banner-nominal">
+            <div class="banner-content">
+                <span id="banner-icon" class="banner-icon">🛡️</span>
+                <div>
+                    <h2 id="banner-title">STATUS: NOMINAL (ALL WORKERS CLEAR)</h2>
+                    <p id="banner-subtitle">Zero-masking safety engine active. Monitoring Safe Box & Restricted Cells.</p>
+                </div>
+            </div>
+            <div id="banner-counter" class="banner-metric">0 BREACHES</div>
+        </section>
+
+        <!-- Main Dashboard Grid -->
+        <section class="dashboard-grid">
+            <!-- Left: Live Interactive Canvas & Camera View -->
+            <div class="card canvas-card">
+                <div class="card-header">
+                    <h3>Spatial Hazard Sentinel Viewport</h3>
+                    <div class="hud-controls">
+                        <button class="btn btn-sm btn-outline" id="btn-toggle-hud">Toggle Zones</button>
+                        <button class="btn btn-sm btn-outline" id="btn-audio-toggle">🔊 Audio: ON</button>
+                    </div>
+                </div>
+
+                <div class="viewport-wrapper">
+                    <canvas id="sentinelCanvas" width="800" height="460"></canvas>
+                    <div id="alarm-overlay" class="alarm-flash"></div>
+                </div>
+
+                <div class="control-bar">
+                    <div class="btn-group">
+                        <button class="btn btn-primary" id="btn-demo-breach">🚨 Trigger Dual-Worker Breach</button>
+                        <button class="btn btn-secondary" id="btn-demo-safe">✅ Both in Safe Box</button>
+                        <button class="btn btn-secondary" id="btn-reset">🔄 Reset Scene</button>
+                    </div>
+                    <div class="speed-toggle">
+                        <label for="speedSlider">Sim Speed:</label>
+                        <input type="range" id="speedSlider" min="1" max="5" value="2">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Real-time Telemetry & Object States -->
+            <div class="card telemetry-card">
+                <div class="card-header">
+                    <h3>Tracked Entity Telemetry</h3>
+                    <span class="badge badge-purple" id="track-count">2 Active Tracks</span>
+                </div>
+
+                <!-- Entity 1 (Safe Box Worker) -->
+                <div class="entity-card" id="entity-1-card">
+                    <div class="entity-header">
+                        <span class="entity-id">ID #1: Worker Alpha</span>
+                        <span class="status-pill pill-safe" id="entity-1-status">SAFE IN BOX</span>
+                    </div>
+                    <div class="entity-body">
+                        <div>Zone: <span id="entity-1-zone" class="bold">Safe Assembly Box</span></div>
+                        <div>Velocity: <span id="entity-1-vel" class="mono-text">0.0 px/s (Still)</span></div>
+                        <div>Dwell Time: <span id="entity-1-dwell" class="mono-text">14.2s</span></div>
+                    </div>
+                </div>
+
+                <!-- Entity 2 (Moving Worker) -->
+                <div class="entity-card" id="entity-2-card">
+                    <div class="entity-header">
+                        <span class="entity-id">ID #2: Worker Beta</span>
+                        <span class="status-pill pill-warning" id="entity-2-status">TRANSIT AISLE</span>
+                    </div>
+                    <div class="entity-body">
+                        <div>Zone: <span id="entity-2-zone" class="bold">Buffer Corridor</span></div>
+                        <div>Velocity: <span id="entity-2-vel" class="mono-text">18.4 px/s (Moving)</span></div>
+                        <div>Dwell Time: <span id="entity-2-dwell" class="mono-text">3.1s</span></div>
+                    </div>
+                </div>
+
+                <!-- Stat Counters -->
+                <div class="stats-mini-grid">
+                    <div class="stat-box">
+                        <div class="stat-num text-safe" id="stat-safe">1</div>
+                        <div class="stat-lbl">Safe in Box</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num text-warning" id="stat-warning">1</div>
+                        <div class="stat-lbl">Warning Zone</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num text-danger" id="stat-danger">0</div>
+                        <div class="stat-lbl">Critical Breaches</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Incident History Feed -->
+        <section class="card logs-card">
+            <div class="card-header">
+                <h3>Actionable Incident Telemetry Log</h3>
+                <button class="btn btn-sm btn-outline" id="btn-clear-logs">Clear Feed</button>
+            </div>
+            <div class="table-responsive">
+                <table class="incident-table">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Severity</th>
+                            <th>Track ID</th>
+                            <th>Zone Name</th>
+                            <th>Coordinates (x, y)</th>
+                            <th>Action Triggered</th>
+                        </tr>
+                    </thead>
+                    <tbody id="incident-tbody">
+                        <!-- Dynamic JavaScript insertion -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Workplace Safety Sentinel | Repository <strong>abcd</strong> | Physical AI Hackathon Track A</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
