@@ -175,6 +175,68 @@ body {
     background: rgba(0, 0, 0, 0.35);
 }
 
+/* Mode Selection Strip */
+.mode-strip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #111522;
+    padding: 12px 20px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--card-border);
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+/* Live Decision Output Card */
+.decision-box {
+    background: #0d111a;
+    border: 2px solid var(--accent-green);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-bottom: 16px;
+    transition: all 0.25s ease;
+}
+
+.decision-box.breach {
+    border-color: var(--accent-red);
+    background: rgba(239, 68, 68, 0.15);
+}
+
+.decision-box.warning {
+    border-color: var(--accent-amber);
+    background: rgba(245, 158, 11, 0.12);
+}
+
+.decision-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    color: var(--text-secondary);
+}
+
+.decision-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--accent-green);
+    margin-top: 4px;
+}
+
+.decision-box.breach .decision-value {
+    color: var(--accent-red);
+}
+
+.decision-box.warning .decision-value {
+    color: var(--accent-amber);
+}
+
+.decision-sub {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
 /* Dashboard Grid */
 .dashboard-grid {
     display: grid;
